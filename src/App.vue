@@ -30,7 +30,7 @@ export default {
     HelloWorld,
     MatchDay,
     VueTable
-  },/*
+  },
   data(){
     return {
         TournamentID: "",
@@ -277,7 +277,7 @@ export default {
                 }
             ]}
     }
-   },*/
+  },
   methods: {
       fetchLeague: function () {
           let self = this

@@ -5,10 +5,10 @@
         @click="toggle">
         <span v-if="isFolder">Jornada {{matchDay}} [{{ open ? '-' : '+' }}]</span>
         <span v-if="!isFolder">{{model.HomeTeam.Team}}  </span>
-        <input v-if="!isFolder" type="number" v-model.number="model.HomeScore">
+        <input v-if="!isFolder" type="number" min="0" v-model.number="model.HomeScore">
         <span v-if="!isFolder"> - {{model.AwayTeam.Team}}  </span>
-        <input v-if="!isFolder" type="number" v-model.number="model.AwayScore">
-        <button v-if="!isFolder">Submit</button>
+        <input v-if="!isFolder" type="number" min="0" v-model.number="model.AwayScore">
+        <button v-if="!isFolder" @click="updateResult(model._id, model.HomeScore, model.AwayScore)">Submit</button>
       </div>
       <ul v-show="open" v-if="isFolder">
         <MatchDay
@@ -58,6 +58,13 @@ export default {
             self.data = {children: json}
           }).catch(error => {console.log(error);});
         }
+      },
+      updateResult: function (id, homescore, awayscore) {
+        let self = this
+        const myRequest = new Request('https://scoretables-service.herokuapp.com/api/matchdays/'+id+'/'+homescore+'/'+awayscore, {method: 'PUT'})
+        fetch(myRequest).then(response => response.json()).then(json => {
+          console.log(json);
+        }).catch(error => {console.log(error);});
       }
     },
     mounted () {
