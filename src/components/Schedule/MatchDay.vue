@@ -73,12 +73,25 @@ export default {
     }
     .item {
         cursor: pointer;
+        padding: 0 10px;
+        overflow: hidden;
+        background-color: #f1f1f1;
     }
     .bold {
         font-weight: bold;
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
     }
     ul {
         padding-left: 1em;
         line-height: 1.5em;
+        list-style: none;
     }
 </style>

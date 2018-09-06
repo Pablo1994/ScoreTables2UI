@@ -4,6 +4,8 @@
     <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div> -->
   <div id="app">
+    <span class=titulo>Tournament: {{Title}}</span>
+    <vue-table :columns="columns" :rows="rows"></vue-table>
     <ul v-for="i in MatchDayAmount">
       <MatchDay 
         :match-day=i
@@ -11,7 +13,6 @@
         :model="data">
       </MatchDay>
     </ul>
-    <vue-table :columns="columns" :rows="rows"></vue-table>
   </div>
 </template>
 
@@ -29,7 +30,7 @@ export default {
     HelloWorld,
     MatchDay,
     VueTable
-  },
+  },/*
   data(){
     return {
         TournamentID: "",
@@ -276,7 +277,7 @@ export default {
                 }
             ]}
     }
-  },
+   },*/
   methods: {
       fetchLeague: function () {
           let self = this
@@ -333,5 +334,17 @@ th{
 	background-color: #6ba229;
 	color: #fff;
 	height: 44;
+}
+
+.titulo{
+    font-weight: bold;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 25px;
 }
 </style>
