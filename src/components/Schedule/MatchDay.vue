@@ -4,15 +4,16 @@
         :class="{bold: isFolder}"
         @click="toggle">
         <span v-if="isFolder">Jornada {{matchDay}} [{{ open ? '-' : '+' }}]</span>
-        <span v-if="!isFolder">{{data.HomeTeam.Team}}  </span>
-        <input v-if="!isFolder" type="number" v-model.number="data.HomeScore">
-        <span v-if="!isFolder"> - {{data.AwayTeam.Team}}  </span>
-        <input v-if="!isFolder" type="number" v-model.number="data.AwayScore">
+        <span v-if="!isFolder">{{model.HomeTeam.Team}}  </span>
+        <input v-if="!isFolder" type="number" v-model.number="model.HomeScore">
+        <span v-if="!isFolder"> - {{model.AwayTeam.Team}}  </span>
+        <input v-if="!isFolder" type="number" v-model.number="model.AwayScore">
         <button v-if="!isFolder">Submit</button>
       </div>
       <ul v-show="open" v-if="isFolder">
         <MatchDay
           class="item"
+          v-if="isFolder"
           v-for="(data, index) in data.children"
           :key="index"
           :model="data">
@@ -33,7 +34,7 @@ export default {
     data: function () {
       return {
         open: false,
-        data: {children: {}}
+        data: null
       }
     },
     computed: {
@@ -50,15 +51,17 @@ export default {
       },
       fetchMatchDay: function () {
         let self = this
-          const myRequest = new Request('https://scoretables.herokuapp.com/api/matchdays/'+self.tournamentID+'/'+self.matchDay)
+        if(self.tournamentID != null){
+          const myRequest = new Request('https://scoretables-service.herokuapp.com/api/matchdays/league/'+self.tournamentID+'/'+self.matchDay)
           fetch(myRequest).then(response => response.json()).then(json => {
             console.log(json);
-            self.data.children = json
+            self.data = {children: json}
           }).catch(error => {console.log(error);});
+        }
       }
     },
     mounted () {
-      this.fetchMatchDay()
+        this.fetchMatchDay()
     }
 }
 </script>

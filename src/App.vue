@@ -280,7 +280,7 @@ export default {
   methods: {
       fetchLeague: function () {
           let self = this
-          const myRequest = new Request('https://scoretables.herokuapp.com/api/leagues/ACLMayo')
+          const myRequest = new Request('https://scoretables-service.herokuapp.com/api/leagues/ACLMayo')
           fetch(myRequest).then(response => response.json()).then(json => {
               console.log(json);
             self.TournamentID = json.ID;
